@@ -7,7 +7,7 @@ module.exports = {
     SALT: 10,
     DATABASE: {
         username: 'postgres',
-        password: 'XKZYrVpGXGUVE0PnEX6h',
+        password: '',
         host: 'localhost',
         dialect: 'postgres',
         name: 'medequip'
