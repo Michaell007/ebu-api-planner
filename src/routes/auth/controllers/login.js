@@ -5,8 +5,14 @@ import bcript from "bcryptjs";
 
 export default async ({ bodymen: { body } }, res, next) => {
     try {
+
+        console.log( body.email , body.password );
+
         // Check user by email
         const user = await User.findOne({ where: { email: body.email } });
+
+        console.log( user );
+
         if (user === null) {
             return res.sendUserError('Echec de l\'authentification.');
         }

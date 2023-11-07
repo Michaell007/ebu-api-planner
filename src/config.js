@@ -4,6 +4,7 @@ dotenv.config()
 module.exports = {
     root: '/api',
     PORT: process.env.PORT || '8080',
+    MONGODB_URL: 'mongodb://localhost:27017/plannerdb',
     SALT: 10,
     DATABASE: {
         username: 'postgres',

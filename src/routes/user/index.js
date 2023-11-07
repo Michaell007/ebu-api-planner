@@ -6,7 +6,7 @@ import { registration, getDetailsUser, updateUser, getListUser, deleteUser } fro
 const router = new Router();
 
 router.post('/register',
-    token({ required: true}),
+    // token({ required: true}),
     body({
         username: {
             type: String,
