@@ -5,8 +5,9 @@ import bcrypt from "bcrypt";
 const SALT_ROUNDS = 10;
 
 const types = {
-    DEMANDEUR: "demandeur",
-    PROFESSIONNEL: "professionnel",
+    PARTICULIER: "PARTICULIER",
+    PROFESSIONNEL: "PROFESSIONNEL",
+    CLIENT: "CLIENT",
 };
 
 const userSchema = new Schema({
@@ -15,26 +16,17 @@ const userSchema = new Schema({
         trim: true,
         default: null,
     },
-
     lastName: {
         type: String,
         trim: true,
         default: null,
     },
-
-    fullName: {
-        type: String,
-        trim: true,
-        default: null,
-    },
-
     phone: {
         type: String,
         match: /^\+\d{2,20}$/,
         unique: true,
         required: false,
     },
-
     email: {
         type: String,
         unique: true,
@@ -42,44 +34,19 @@ const userSchema = new Schema({
         trim: true,
         lowercase: true,
     },
-
     password: {
         type: String,
         required: true,
     },
-
     type: {
         type: String,
-        enum: [types.DEMANDEUR, types.PROFESSIONNEL],
-        default: types.PROFESSIONNEL,
+        enum: [types.PARTICULIER, types.PROFESSIONNEL, types.CLIENT],
+        default: types.PARTICULIER,
         required: true,
     },
-
     isActive: {
         type: Boolean,
         default: false,
-    },
-
-    passwordVerification: {
-        code: {
-            type: String,
-            default: null,
-        },
-
-        expiredAt: {
-            type: Date,
-            default: null,
-        },
-    },
-
-    resetPasswordToken: {
-        type: String,
-        required: false,
-    },
-
-    resetPasswordExpires: {
-        type: Date,
-        required: false,
     },
 });
 
@@ -126,7 +93,6 @@ userSchema.methods = {
     },
 
     changePassword({ new_password }) {
-        console.log("new password", new_password);
         const salt = bcrypt.genSaltSync(SALT_ROUNDS);
         this.password = bcrypt.hashSync(_.trim(new_password), salt);
         return this.save();
