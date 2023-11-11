@@ -5,14 +5,14 @@ import _ from "lodash";
 
 export default async ({ bodymen: { body }}, res, next) => {
     try {
-        const usernameExist = await User.findOne({ where: { username: _.toLower(body.username)} });
-        if (usernameExist !== null) {
-            return res.sendUserError('Cet username est déjà utilisé.');
+        const emailEmail = await await User.findOne({ email: body.email });
+        if (emailEmail !== null) {
+            return res.sendUserError('Cet Email est déjà utilisé.');
         }
 
-        const emailEmail = await User.findOne({ where: { email: _.toLower(body.email) } });
-        if (emailEmail !== null) {
-            return res.sendUserError('Cet email est déjà utilisé.');
+        const phoneExist = await await User.findOne({ phone: body.phone });
+        if (phoneExist !== null) {
+            return res.sendUserError('Cet numéro est déjà utilisé.');
         }
 
         // hash du password

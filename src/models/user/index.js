@@ -23,7 +23,7 @@ const userSchema = new Schema({
     },
     phone: {
         type: String,
-        match: /^\+\d{2,20}$/,
+        // match: /^\+\d{2,20}$/,
         unique: true,
         required: false,
     },
@@ -61,7 +61,7 @@ const userSchema = new Schema({
 userSchema.methods = {
     view(full) {
         let view = {};
-        let fields = ["id", "firstName", "lastName"];
+        let fields = ["id", "firstName", "lastName", "phone", "email", "type"];
 
         if (full) {
             fields = [...fields, "phone", "email", "createdAt", "updatedAt"];

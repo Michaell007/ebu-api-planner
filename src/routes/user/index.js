@@ -8,7 +8,17 @@ const router = new Router();
 router.post('/register',
     // token({ required: true}),
     body({
-        username: {
+        firstName: {
+            type: String,
+            trim: true,
+            required: true
+        },
+        lastName: {
+            type: String,
+            trim: true,
+            required: true
+        },
+        phone: {
             type: String,
             trim: true,
             required: true
@@ -24,24 +34,11 @@ router.post('/register',
             type: String,
             required: true
         },
-        nom: {
+        type: {
             type: String,
             required: true,
             minlength: 5
-        },
-        prenom: {
-            type: String,
-            required: true,
-            minlength: 5
-        },
-        RoleId: {
-            type: Number,
-            required: true
-        },
-        embaucheDate: { //'2022-01-17'
-            type: String,
-            required: false
-        },
+        }
     }), registration)
 
 router.put('/edit/:id',
