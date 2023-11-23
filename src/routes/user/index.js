@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import { token } from "../../services/passport";
-import { registration, getDetailsUser, updateUser, getListUser, deleteUser } from "./controllers";
+import { registration, getDetailsUser, updateUser, getListUser, deleteUser, changePasswordUser } from "./controllers";
 
 const router = new Router();
 
@@ -42,9 +42,19 @@ router.post('/register',
     }), registration)
 
 router.put('/edit/:id',
-    token({ required: true, admin_super: true }),
+    token({ required: true }),
     body({
-        username: {
+        firstName: {
+            type: String,
+            trim: true,
+            required: true
+        },
+        lastName: {
+            type: String,
+            trim: true,
+            required: true
+        },
+        phone: {
             type: String,
             trim: true,
             required: true
@@ -56,25 +66,27 @@ router.put('/edit/:id',
             lowercase: true,
             required: true
         },
-        embaucheDate: { //'2022-01-17'
+    }), updateUser)
+
+router.put('/password/:id',
+    token({ required: true }),
+    body({
+        oldPassword: {
             type: String,
-            required: false
+            trim: true,
+            required: true
         },
-        nom: {
+        newPassword: {
             type: String,
-            required: true,
-            minlength: 5
+            trim: true,
+            required: true
         },
-        prenom: {
+        repeatNewPassword: {
             type: String,
-            required: true,
-            minlength: 5
-        },
-        RoleId: {
-            type: Number,
+            trim: true,
             required: true
         }
-    }), updateUser)
+    }), changePasswordUser)
 
 router.get('/:id',
     token({ required: true}),

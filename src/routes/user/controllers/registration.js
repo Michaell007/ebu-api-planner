@@ -5,7 +5,7 @@ import _ from "lodash";
 
 export default async ({ bodymen: { body }}, res, next) => {
     try {
-        const emailEmail = await await User.findOne({ email: body.email });
+        const emailEmail = await User.findOne({ email: body.email });
         if (emailEmail !== null) {
             return res.sendUserError('Cet Email est déjà utilisé.');
         }

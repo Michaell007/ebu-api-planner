@@ -3,7 +3,7 @@ import User from "../../../models/user";
 export default async ({ params }, res, next) => {
     try {
 
-        let user = await User.findOne({ where: { id: params.id }, attributes: {exclude: ['password']}, include: ['Profile', 'Role'], attributes: { exclude: ['password']} });
+        let user = await User.findOne({ id: params.id });
         if (user == null) {
             return res.sendUserError('Identifiant incorrect.');
         }

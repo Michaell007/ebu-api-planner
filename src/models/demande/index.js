@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import User from '../user';
 import _ from "lodash";
 
 const demandeSchema = new Schema({
@@ -6,6 +7,10 @@ const demandeSchema = new Schema({
         type: String,
         trim: true,
         default: null,
+    },
+    modele: {
+        type: String,
+        required: true
     },
     prenom: {
         type: String,
@@ -53,16 +58,25 @@ const demandeSchema = new Schema({
     },
     dateFin: {
         type: String,
-        required: true,
+        required: false,
     },
     region: {
         type: String,
         required: true,
     },
+    choixPrestation: {
+        type: Array,
+        required: false,
+    },
     remarque: {
         type: String,
         required: true,
     },
+    isTraited: {
+        type: Boolean,
+        default: false
+    },
+    user: {type: mongoose.Types.ObjectId, ref: "User"}
 });
 
 demandeSchema.methods = {};

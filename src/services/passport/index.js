@@ -7,7 +7,7 @@ import User from "../../models/user";
 export const master = () =>
   passport.authenticate('master', { session: false })
 
-export const token = ({ required, admin_super } = { required, admin_super }) => (req, res, next) =>
+export const token = ({ required } = { required }) => (req, res, next) =>
     passport.authenticate('token', { session: false }, (err, user, info) => {
       if (err || (required && !user)) {
           return res.sendHttpError(new HttpError(401, 'Vous n\'êtes pas autorisé à accéder à cette application'))
@@ -31,10 +31,10 @@ export const token = ({ required, admin_super } = { required, admin_super }) => 
           ExtractJwt.fromAuthHeaderWithScheme('Bearer')
         ])
     }, ({ id }, done) => {
-        User.findOne({ where: { id: id }, include: 'Role' }).then((user) => {
-          done(null, user)
-          return null
-        }).catch(done)
+      User.findById(id).then((user) => {
+        done(null, user)
+        return null
+      }).catch(done)
     })
 )
   
