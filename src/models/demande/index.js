@@ -76,7 +76,7 @@ const demandeSchema = new Schema({
         type: Boolean,
         default: false
     },
-    user: {type: mongoose.Types.ObjectId, ref: "User"}
+    userId: {type: mongoose.Types.ObjectId, ref: "User"}
 });
 
 demandeSchema.methods = {};

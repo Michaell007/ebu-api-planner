@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import { token } from "../../services/passport";
-import { createDemande } from "./controllers";
+import { createDemande, getListDemande } from "./controllers";
 
 const router = new Router();
 
 router.post('/create',
-    // token({ required: true}),
+    token({ required: true}),
     body({
         modele: {
             type: String,
@@ -76,10 +76,15 @@ router.post('/create',
             type: String,
             required: true
         },
-        user: {
+        userId: {
             type: String,
             required: true
         },
     }), createDemande)
+
+
+router.get('/liste',
+    token({ required: true}),
+    getListDemande)
 
 export default router;
