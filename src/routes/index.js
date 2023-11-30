@@ -4,6 +4,7 @@ import { sendHttpError } from '../middleware'
 import auth from './auth'
 import user from './user'
 import demande from './demande';
+import evenement from './evenement';
 
 import Role from "./role";
 
@@ -14,6 +15,7 @@ router.use(sendHttpError)
 router.use('/auth', auth)
 router.use('/user', user)
 router.use('/demande', demande)
+router.use('/evenement', evenement)
 
 
 router.use('/role/user', Role)
