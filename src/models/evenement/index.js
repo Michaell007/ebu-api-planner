@@ -5,21 +5,27 @@ import _ from "lodash";
 const evenementSchema = new Schema({
     title: {
         type: String,
-        trim: true,
-        default: null,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    lieu: {
+        type: String,
+        required: true
     },
     nbPersonnes: {
         type: Number,
         required: true
     },
-    userId: {type: mongoose.Types.ObjectId, ref: "User"}
+    userId: {type: mongoose.Types.ObjectId, ref: "User"},
+    images: [{type: mongoose.Types.ObjectId, ref: "Image"}]
 });
 
 evenementSchema.methods = {};
-
 evenementSchema.statics = {};
-
-// userSchema.plugin(timestampPlugin);
+// evenementSchema.plugin(timestampPlugin);
 
 const model = mongoose.model("Evenement", evenementSchema);
 

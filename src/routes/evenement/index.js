@@ -1,31 +1,15 @@
 import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import { token } from "../../services/passport";
-import { createEvent } from "./controllers";
+import { createEvent, getAllEvent } from "./controllers";
+import Evenement from '../../models/evenement';
+import Image from '../../models/image';
+import _, { split } from "lodash";
 
 const multer = require('multer');
 const path = require('path');
 
 const router = new Router();
-
-// Multer configuration
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, 'public/uploads/');
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-//     },
-// });
-// const upload = multer({ storage: storage });
-
-// Multiple file upload endpoint
-// router.post('/create', upload.array('files', 5), (req, res) => {
-//     console.log('tu es une servante ...');
-//     res.json({ message: 'Files uploaded successfully' });
-// });
-
-
 
 // ZONE UPLOADING
 var storage = multer.diskStorage({
@@ -38,31 +22,38 @@ var storage = multer.diskStorage({
         cb(null, "public/uploads/");
     },
 });
+
 let upload = multer({
     storage: storage,
     limits: {
         fileSize: 2 * 1024 * 1024, // 2MB limit (in bytes)
     },
 });
-router.post("/create", upload.single("file"), (req, res) => {
-    console.log('tu es une servante ...');
-    res.json({ message: 'Files uploaded successfully' });
+
+router.post("/create", upload.array("file"), async (req, res) => {
+    const existTitle = await Evenement.findOne({ title: req.body.title });
+    if (existTitle !== null) {
+        return res.sendUserError('Cet titre existe déjà.');
+    }
+
+    const newEvent = await Evenement.create(req.body);
+    for (const file of req.files) {
+        let pathSplitStep = file.path.split('/');
+        let fileName = pathSplitStep[2];
+
+        const img = await Image.create({ name: fileName, evenement: newEvent.id });
+        newEvent.images.push(img.id);
+        await newEvent.save();
+    }
+
+    return res.json({
+        success: true
+    }) 
 });
 
-
-
-
-
-
-router.post('/create',
+router.get('/all',
     // token({ required: true}),
-    body({
-        firstName: {
-            type: String,
-            trim: true,
-            required: true
-        }
-    }), createEvent)
+    getAllEvent)
 
 
 export default router;
