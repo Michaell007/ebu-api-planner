@@ -15,6 +15,10 @@ const evenementSchema = new Schema({
         type: String,
         required: true
     },
+    prix: {
+        type: Number,
+        required: true
+    },
     nbPersonnes: {
         type: Number,
         required: true
