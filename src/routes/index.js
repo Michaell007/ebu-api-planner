@@ -5,6 +5,7 @@ import auth from './auth'
 import user from './user'
 import demande from './demande';
 import evenement from './evenement';
+import commande from './commande';
 
 import Role from "./role";
 
@@ -16,6 +17,7 @@ router.use('/auth', auth)
 router.use('/user', user)
 router.use('/demande', demande)
 router.use('/evenement', evenement)
+router.use('/commande', commande)
 
 
 router.use('/role/user', Role)
