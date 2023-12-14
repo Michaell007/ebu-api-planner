@@ -8,6 +8,10 @@ const commandeSchema = new Schema({
         type: String,
         required: false
     },
+    status: {
+        type: String,
+        required: false
+    },
     userId: {type: mongoose.Types.ObjectId, ref: "User"},
     evenements: [{type: mongoose.Types.ObjectId, ref: "Evenement"}]
 });
