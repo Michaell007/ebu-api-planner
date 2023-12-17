@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import timestampPlugin from 'mongoose-timestamp';
 import User from '../user';
 import _ from "lodash";
 
@@ -29,7 +30,7 @@ const evenementSchema = new Schema({
 
 evenementSchema.methods = {};
 evenementSchema.statics = {};
-// evenementSchema.plugin(timestampPlugin);
+evenementSchema.plugin(timestampPlugin);
 
 const model = mongoose.model("Evenement", evenementSchema);
 

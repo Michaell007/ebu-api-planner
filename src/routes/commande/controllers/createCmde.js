@@ -5,15 +5,15 @@ import _ from "lodash";
 export default async ({ bodymen: { body }}, res, next) => {
     try {
         const newCmde = await Commande.create({ userId: body.userId, status: 'EN COURS' });
-        for (const event of body.evenements) {
 
-            await DetailsCommande.create({ 
+        for (const event of body.evenements) {
+            let details = await DetailsCommande.create({ 
                 commandeId: newCmde._id, 
                 evenementId: event._id,
                 horaire: event.horaire
             });
-
             newCmde.evenements.push(event._id);
+            newCmde.detailsCommandes.push(details._id);
             await newCmde.save();
         }
 

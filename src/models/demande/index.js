@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import timestampPlugin from 'mongoose-timestamp';
 import User from '../user';
 import _ from "lodash";
 
@@ -80,10 +81,8 @@ const demandeSchema = new Schema({
 });
 
 demandeSchema.methods = {};
-
 demandeSchema.statics = {};
-
-// userSchema.plugin(timestampPlugin);
+demandeSchema.plugin(timestampPlugin);
 
 const model = mongoose.model("Demande", demandeSchema);
 

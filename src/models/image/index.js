@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import timestampPlugin from 'mongoose-timestamp';
 import _ from "lodash";
 
 const imageSchema = new Schema({
@@ -11,7 +12,7 @@ const imageSchema = new Schema({
 
 imageSchema.methods = {};
 imageSchema.statics = {};
-// imageSchema.plugin(timestampPlugin);
+imageSchema.plugin(timestampPlugin);
 
 const model = mongoose.model("Image", imageSchema);
 
