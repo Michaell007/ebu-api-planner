@@ -5,8 +5,7 @@ export default async (req, res, next) => {
     try {
         const { user } = req;
         let commandes = await Commande.find({ userId: user.id })
-            .populate('evenements')
-            .populate('detailsCommandes')
+            .populate('detailsCommandes').populate('evenements')
         ;
 
         return res.json({

@@ -24,6 +24,10 @@ const evenementSchema = new Schema({
         type: Number,
         required: true
     },
+    type: {
+        type: String,
+        required: true
+    },
     userId: {type: mongoose.Types.ObjectId, ref: "User"},
     images: [{type: mongoose.Types.ObjectId, ref: "Image"}]
 });
