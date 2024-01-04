@@ -12,6 +12,7 @@ export default async ({ bodymen: { body, user }}, res, next) => {
                 evenementId: event._id,
                 horaire: event?.horaire,
                 nombrePersChoisi: event?.nombrePersChoisi,
+                qteBouteilleChoisi: event?.qteBouteilleChoisi,
             });
 
             newCmde.evenements.push(event._id);

@@ -12,6 +12,10 @@ const detailsCommandeSchema = new Schema({
         type: Number,
         required: false
     },
+    qteBouteilleChoisi: {
+        type: Number,
+        required: false
+    },
     commandeId: {type: mongoose.Types.ObjectId, ref: "Commande"},
     evenementId: {type: mongoose.Types.ObjectId, ref: "Evenement"}
 });

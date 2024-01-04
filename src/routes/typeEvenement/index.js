@@ -25,7 +25,7 @@ router.post('/create',
 
 
 router.get('/liste',
-    token({ required: true}),
+    // token({ required: true}),
     getListTypeEvent)
 
 export default router;
