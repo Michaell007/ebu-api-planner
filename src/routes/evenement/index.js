@@ -39,7 +39,13 @@ router.post("/create", upload.array("file"), async (req, res) => {
     const newEvent = await Evenement.create(req.body);
     for (const file of req.files) {
         let pathSplitStep = file.path.split('/');
-        let fileName = pathSplitStep[2];
+
+        // windows
+        let firstNameArray = pathSplitStep[0].split('\\');
+        let fileName = firstNameArray[2];
+
+        // LINUX
+        // let fileName = pathSplitStep[2];
 
         const img = await Image.create({ name: fileName, evenement: newEvent.id });
         newEvent.images.push(img.id);
