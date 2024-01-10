@@ -1,9 +1,9 @@
-import Evenement from "../../../models/evenement";
+import TypeEvenement from "../../../models/typeEvenement";
 
 export default async (req, res, next) => {
     try {
         const { user } = req;
-        let events = await Evenement.find({type: req.params.type}).populate('images');;
+        let events = await TypeEvenement.find({});
 
         return res.json({
             success: true,

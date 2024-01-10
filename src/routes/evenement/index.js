@@ -57,7 +57,7 @@ router.post("/create", upload.array("file"), async (req, res) => {
     }) 
 });
 
-router.get('/all',
+router.get('/all/:type',
     // token({ required: true}),
     getAllEvent)
 

@@ -1,13 +1,13 @@
-import Evenement from "../../../models/evenement";
+import Participant from "../../../models/participant";
 
 export default async (req, res, next) => {
     try {
         const { user } = req;
-        let events = await Evenement.find({type: req.params.type}).populate('images');;
+        let participants = await Participant.find({});
 
         return res.json({
             success: true,
-            results: events
+            results: participants
         })
         
     } catch (error) {

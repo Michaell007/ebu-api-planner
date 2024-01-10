@@ -1,28 +1,31 @@
 import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import { token } from "../../services/passport";
-import { createCmde, getListCmde } from "./controllers";
-import Evenement from '../../models/evenement';
+import { createTypeEvenement, getListTypeEvent } from "./controllers";
 
 const router = new Router();
 
 router.post('/create',
     token({ required: true}),
     body({
+        libelle: {
+            type: String,
+            required: true
+        },
         description: {
             type: String,
+            trim: true,
             required: false
         },
-        evenements: [{}],
         userId: {
             type: String,
             required: true
         },
-    }), createCmde)
+    }), createTypeEvenement)
+
 
 router.get('/liste',
-    token({ required: true}),
-    getListCmde)
-
+    // token({ required: true}),
+    getListTypeEvent)
 
 export default router;

@@ -13,7 +13,8 @@ const commandeSchema = new Schema({
         required: false
     },
     userId: {type: mongoose.Types.ObjectId, ref: "User"},
-    evenements: [{type: mongoose.Types.ObjectId, ref: "Evenement"}]
+    evenements: [{type: mongoose.Types.ObjectId, ref: "Evenement"}],
+    detailsCommandes: [{ type: mongoose.Types.ObjectId, ref: "DetailsCommande" }]
 });
 
 commandeSchema.methods = {};
