@@ -1,9 +1,55 @@
 import { Router } from 'express';
 import { middleware as body } from 'bodymen';
+import Demande from "../../models/demande";
 import { token } from "../../services/passport";
 import { createDemande, getListDemande } from "./controllers";
+import _, { split } from "lodash";
 
 const router = new Router();
+
+const multer = require('multer');
+const path = require('path');
+
+
+// ZONE UPLOADING
+var storage = multer.diskStorage({
+    filename: function (req, file, cb) {
+        const fileExtension = path.extname(file.originalname);
+        const uniqueFilename =Date.now() + fileExtension;
+        cb(null, uniqueFilename);
+    },
+    destination: function (req, file, cb) {
+        cb(null, "public/uploads/");
+    },
+});
+
+let upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 2 * 1024 * 1024, // 2MB limit (in bytes)
+    },
+});
+
+router.post("/new", upload.array("file"), async (req, res) => {
+    const newDemande = await Demande.create(req.body);
+    for (const file of req.files) {
+        let pathSplitStep = file.path.split('/');
+
+        // windows
+        let firstNameArray = pathSplitStep[0].split('\\');
+        let fileName = firstNameArray[2];
+
+        // LINUX
+        // let fileName = pathSplitStep[2];
+
+        newDemande.documents.push(fileName);
+        await newDemande.save();
+    }
+
+    return res.json({
+        success: true
+    }) 
+});
 
 router.post('/create',
     token({ required: true}),
@@ -81,7 +127,6 @@ router.post('/create',
             required: true
         },
     }), createDemande)
-
 
 router.get('/liste',
     token({ required: true}),

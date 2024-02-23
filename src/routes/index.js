@@ -9,6 +9,7 @@ import commande from './commande';
 import typeEvenement from './typeEvenement';
 import participant from './participant';
 import ville from './ville';
+import programme from './programme';
 
 import Role from "./role";
 
@@ -24,6 +25,7 @@ router.use('/commande', commande)
 router.use('/typeEvenement', typeEvenement)
 router.use('/participant', participant)
 router.use('/ville', ville)
+router.use('/programme', programme)
 
 
 router.use('/role/user', Role)

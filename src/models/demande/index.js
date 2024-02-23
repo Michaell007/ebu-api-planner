@@ -77,6 +77,10 @@ const demandeSchema = new Schema({
         type: Boolean,
         default: false
     },
+    documents: {
+        type: Array,
+        required: false,
+    },
     userId: {type: mongoose.Types.ObjectId, ref: "User"}
 });
 

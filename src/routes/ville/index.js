@@ -20,7 +20,7 @@ router.post('/create',
 
 
 router.get('/liste',
-    token({ required: true}),
+    // token({ required: true}),
     getListVille)
 
 export default router;

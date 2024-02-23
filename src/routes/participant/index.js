@@ -6,7 +6,7 @@ import { createParticipant, getListParticipants } from "./controllers";
 const router = new Router();
 
 router.post('/create',
-    token({ required: true}),
+    // token({ required: true}),
     body({
         libelle: {
             type: String,

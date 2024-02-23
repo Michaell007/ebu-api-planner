@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import { token } from "../../services/passport";
-import { createEvent, getAllEvent } from "./controllers";
+import { createEvent, getAllEvent, getAllByuser, getOneEvent, getAllEventByCategory } from "./controllers";
 import Evenement from '../../models/evenement';
 import Image from '../../models/image';
 import _, { split } from "lodash";
@@ -60,6 +60,18 @@ router.post("/create", upload.array("file"), async (req, res) => {
 router.get('/all/:type',
     // token({ required: true}),
     getAllEvent)
+
+router.get('/all/:type/:category',
+    // token({ required: true}),
+    getAllEventByCategory)
+
+router.get('/all-by-user',
+    token({ required: true}),
+    getAllByuser)
+
+router.get('/:id',
+    token({ required: true}),
+    getOneEvent)
 
 
 export default router;

@@ -20,9 +20,19 @@ const evenementSchema = new Schema({
         type: Number,
         required: true
     },
+    categorieBoisson: {
+        type: String,
+        default: null,
+        required: false
+    },
+    categorieTraiteur: {
+        type: String,
+        default: null,
+        required: false
+    },
     nbPersonnes: {
         type: Number,
-        required: true
+        required: false
     },
     type: {
         type: String,

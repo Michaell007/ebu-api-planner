@@ -1,17 +1,16 @@
-import Evenement from "../../../models/evenement";
+import Programme from "../../../models/programme";
 
 export default async (req, res, next) => {
     try {
         const { user } = req;
-        let events = await Evenement.find({type: req.params.type}).populate('images');
+        let programmes = await Programme.find({ userId: user.id });
 
         return res.json({
             success: true,
-            results: events
+            results: programmes
         })
         
     } catch (error) {
         return next(error)
     }
-
 }
