@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import { token } from "../../services/passport";
-import { createCmde, getListCmde } from "./controllers";
+import { createCmde, getListCmde, deleteCmde } from "./controllers";
 import Evenement from '../../models/evenement';
 
 const router = new Router();
@@ -23,6 +23,10 @@ router.post('/create',
 router.get('/liste',
     token({ required: true}),
     getListCmde)
+
+router.delete('/delete/:id',
+    token({ required: true}),
+    deleteCmde)
 
 
 export default router;

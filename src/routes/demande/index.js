@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import Demande from "../../models/demande";
 import { token } from "../../services/passport";
-import { createDemande, getListDemande } from "./controllers";
+import { createDemande, getListDemande, deleteDemande } from "./controllers";
 import _, { split } from "lodash";
 
 const router = new Router();
@@ -131,5 +131,9 @@ router.post('/create',
 router.get('/liste',
     token({ required: true}),
     getListDemande)
+
+router.delete('/delete/:id',
+    token({ required: true}),
+    deleteDemande)
 
 export default router;

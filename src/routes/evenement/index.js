@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import { token } from "../../services/passport";
-import { createEvent, getAllEvent, getAllByuser, getOneEvent, getAllEventByCategory } from "./controllers";
+import { createEvent, getAllEvent, getAllByuser, getOneEvent, 
+    getAllEventByCategory, getLocations, deleteEvent } from "./controllers";
 import Evenement from '../../models/evenement';
 import Image from '../../models/image';
 import _, { split } from "lodash";
@@ -61,6 +62,10 @@ router.get('/all/:type',
     // token({ required: true}),
     getAllEvent)
 
+router.get('/locations',
+    // token({ required: true}),
+    getLocations)
+
 router.get('/all/:type/:category',
     // token({ required: true}),
     getAllEventByCategory)
@@ -70,8 +75,11 @@ router.get('/all-by-user',
     getAllByuser)
 
 router.get('/:id',
-    token({ required: true}),
+    // token({ required: true}),
     getOneEvent)
 
+router.delete('/delete/:id',
+    token({ required: true}),
+    deleteEvent)
 
 export default router;

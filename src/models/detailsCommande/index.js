@@ -16,6 +16,9 @@ const detailsCommandeSchema = new Schema({
         type: Number,
         required: false
     },
+    dateChoisi: {
+        type: Date
+    },
     commandeId: {type: mongoose.Types.ObjectId, ref: "Commande"},
     evenementId: {type: mongoose.Types.ObjectId, ref: "Evenement"}
 });

@@ -14,7 +14,7 @@ const evenementSchema = new Schema({
     },
     lieu: {
         type: String,
-        required: true
+        required: false
     },
     prix: {
         type: Number,
@@ -37,6 +37,14 @@ const evenementSchema = new Schema({
     type: {
         type: String,
         required: true
+    },
+    longitude: {
+        type: String,
+        required: false
+    },
+    latitude: {
+        type: String,
+        required: false
     },
     userId: {type: mongoose.Types.ObjectId, ref: "User"},
     images: [{type: mongoose.Types.ObjectId, ref: "Image"}]
