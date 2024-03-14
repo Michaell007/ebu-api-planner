@@ -38,6 +38,10 @@ const evenementSchema = new Schema({
         type: String,
         required: true
     },
+    indisponibilites: {
+        type: Array,
+        required: false
+    },
     longitude: {
         type: String,
         required: false

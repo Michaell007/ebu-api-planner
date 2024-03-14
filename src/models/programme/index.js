@@ -31,6 +31,10 @@ const programmeSchema = new Schema({
         type: Boolean,
         required: true,
     },
+    eventId: {
+        type: String,
+        required: true,
+    },
     userId: {type: mongoose.Types.ObjectId, ref: "User"}
 });
 

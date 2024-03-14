@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import { token } from "../../services/passport";
-import { createProgramme, getListProgrammeByUser } from "./controllers";
+import { createProgramme, getListProgrammeByUser, deleteProgramme } from "./controllers";
 import _, { split } from "lodash";
 
 const router = new Router();
@@ -36,8 +36,6 @@ router.post('/create',
             type: Boolean,
             required: true
         },
-       
-        
         dateFin: {
             type: String,
             required: false
@@ -50,10 +48,19 @@ router.post('/create',
             type: String,
             required: true
         },
+        eventId: {
+            type: String,
+            required: true
+        },
     }), createProgramme)
 
 router.get('/my-liste',
     token({ required: true}),
     getListProgrammeByUser)
+
+router.delete('/:id',
+    token({ required: true}),
+    deleteProgramme)
+
 
 export default router;
