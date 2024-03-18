@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import { token } from "../../services/passport";
-import { registration, getDetailsUser, updateUser, getListUser, deleteUser, changePasswordUser } from "./controllers";
+import { registration, getDetailsUser, updateUser, getListUser, deleteUser, changePasswordUser, 
+        getUsersByRole, changeEtatUser } from "./controllers";
 
 const router = new Router();
 
@@ -16,7 +17,7 @@ router.post('/register',
         lastName: {
             type: String,
             trim: true,
-            required: true
+            required: false
         },
         phone: {
             type: String,
@@ -88,16 +89,29 @@ router.put('/password/:id',
         }
     }), changePasswordUser)
 
-router.get('/:id',
-    token({ required: true}),
-    getDetailsUser)
-
 router.get('/liste',
     token({ required: true}),
     getListUser)
 
-router.delete('/delete/:id',
+router.get('/:id',
+    token({ required: true}),
+    getDetailsUser)
+
+router.delete('/trash/:id',
     token({ required: true}),
     deleteUser)
+
+router.get('/liste/:role',
+    token({ required: true}),
+    getUsersByRole)
+
+router.put('/state/:id',
+    token({ required: true }),
+    body({
+        state: {
+            type: Boolean,
+            required: true
+        }
+    }), changeEtatUser)
 
 export default router;

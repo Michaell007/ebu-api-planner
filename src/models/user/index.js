@@ -1,11 +1,12 @@
 import mongoose, { Schema } from "mongoose";
+import timestampPlugin from 'mongoose-timestamp';
 import _ from "lodash";
 import bcrypt from "bcrypt";
 
 const SALT_ROUNDS = 10;
 
 const types = {
-    PARTICULIER: "PARTICULIER",
+    ADMINISTRATOR: "ADMINISTRATOR",
     PROFESSIONNEL: "PROFESSIONNEL",
     CLIENT: "CLIENT",
 };
@@ -40,8 +41,8 @@ const userSchema = new Schema({
     },
     type: {
         type: String,
-        enum: [types.PARTICULIER, types.PROFESSIONNEL, types.CLIENT],
-        default: types.PARTICULIER,
+        enum: [types.ADMINISTRATOR, types.PROFESSIONNEL, types.CLIENT],
+        default: types.PROFESSIONNEL,
         required: true,
     },
     isActive: {
@@ -61,7 +62,7 @@ const userSchema = new Schema({
 userSchema.methods = {
     view(full) {
         let view = {};
-        let fields = ["id", "firstName", "lastName", "phone", "email", "type"];
+        let fields = ["id", "firstName", "lastName", "phone", "email", "type", "createdAt"];
 
         if (full) {
             fields = [...fields, "phone", "email", "createdAt", "updatedAt"];
@@ -171,8 +172,7 @@ userSchema.statics = {
     },
 };
 
-// userSchema.plugin(timestampPlugin);
-
+userSchema.plugin(timestampPlugin);
 const model = mongoose.model("User", userSchema);
 
 export const schema = model.schema;

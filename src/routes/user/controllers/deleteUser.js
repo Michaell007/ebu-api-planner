@@ -1,22 +1,26 @@
 import User from "../../../models/user";
+import Evenement from "../../../models/evenement";
+import Commande from "../../../models/commande";
+const mongoose = require('mongoose');
 
 export default async ({ params }, res, next) => {
     try {
+        const idUser = new mongoose.Types.ObjectId(params.id);
 
-        let user = await User.findOne({ where: { id: params.id } });
+        let user = await User.findOne({ _id: idUser });
         if (user == null) {
             return res.sendUserError('Identifiant incorrect.');
         }
 
-        // delete model
-        await User.destroy({ where: { id: params.id } });
+        let events = await Evenement.find({ userId: user._id });
+        if (events.length > 0) {
+            return res.sendUserError('Evenements not exist.');
+        }
 
-        // reload liste
-        const liste = await User.findAll({});
+        await User.deleteOne({ _id: user._id });
 
         return res.json({
-            succes: true,
-            results: liste
+            success: true
         })
         
     } catch (error) {

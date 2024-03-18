@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { middleware as body } from 'bodymen';
 import { token } from "../../services/passport";
 import { createCmde, getListCmde, deleteCmde, getListeCmdeByClient, setStateCmde } from "./controllers";
-import Evenement from '../../models/evenement';
+
 
 const router = new Router();
 

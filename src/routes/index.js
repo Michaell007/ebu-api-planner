@@ -27,7 +27,6 @@ router.use('/participant', participant)
 router.use('/ville', ville)
 router.use('/programme', programme)
 
-
 router.use('/role/user', Role)
 
 export default router
