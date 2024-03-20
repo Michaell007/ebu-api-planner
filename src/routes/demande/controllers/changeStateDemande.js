@@ -1,19 +1,20 @@
-import Commande from "../../../models/commande";
+import Demande from "../../../models/demande";
 import { sendMail } from "../../../services/mailer";
-const mongoose = require('mongoose');
+import _ from "lodash";
 
-export default async (req, res, next) => {
+export default async ({ body, params }, res, next) => {
     try {
-        const { user } = req;
-        const id = new mongoose.Types.ObjectId(req.params.id);
-        const cmde = await Commande.findById(id)
-            .populate('userId').populate('evenements');
-        cmde.status = req.body.state
-        cmde.save()
+        const dmd = await Demande.findById(params.id).populate('userId');
+        if (dmd == null) {
+            return res.sendUserError('Vous n’êtes pas autorisé à accéder à continuer.');
+        }
+
+        dmd.isTraited = body.state
+        // await dmd.save()
 
         sendMail({
-            toEmail: cmde.userId.email,
-            subject: 'Confirmation de traitement de votre commande',
+            toEmail: 'yahapew860@azduan.com',
+            subject: 'Confirmation de votre demande',
             content: `
             <!doctype html>
             <html lang="en">
@@ -324,9 +325,9 @@ export default async (req, res, next) => {
                                         <!-- START MAIN CONTENT AREA -->
                                         <tr>
                                             <td class="wrapper">
-                                                <p>Cher/Chère ${cmde.userId.firstName} ${cmde.userId.lastName},</p>
-                                                <p>Nous espérons que ce message vous trouve en bonne santé et dans les meilleures dispositions. Nous tenons à vous informer que votre commande ${cmde._id},
-                                                passée sur notre site <a href="" target="_blank">Planner</a> le ${ new Date(cmde.createdAt) }, a été traitée avec succès.</p>
+                                                <p>Cher/Chère ${dmd.userId.firstName} ${dmd.userId.lastName},</p>
+                                                <p>Nous espérons que ce message vous trouve en bonne santé et dans les meilleures dispositions. Nous tenons à vous informer que votre demande ${dmd._id},
+                                                passée sur notre site <a href="" target="_blank">Planner</a> le ${ new Date(dmd.createdAt) }, a été traitée avec succès.</p>
                                                 <p>Cordialement.</p>
                                             </td>
                                         </tr>
@@ -343,11 +344,9 @@ export default async (req, res, next) => {
 
         return res.json({
             success: true,
-            resultat: cmde
         })
 
     } catch (error) {
-        return next(error)
+        next(error)
     }
-
 }
