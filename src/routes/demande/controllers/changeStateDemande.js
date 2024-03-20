@@ -13,7 +13,7 @@ export default async ({ body, params }, res, next) => {
         await dmd.save()
 
         sendMail({
-            toEmail: 'yahapew860@azduan.com',
+            toEmail: dmd.userId.email,
             subject: 'Confirmation de votre demande',
             content: `
             <!doctype html>
