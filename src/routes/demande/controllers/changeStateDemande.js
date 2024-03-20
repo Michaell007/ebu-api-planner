@@ -10,7 +10,7 @@ export default async ({ body, params }, res, next) => {
         }
 
         dmd.isTraited = body.state
-        // await dmd.save()
+        await dmd.save()
 
         sendMail({
             toEmail: 'yahapew860@azduan.com',
