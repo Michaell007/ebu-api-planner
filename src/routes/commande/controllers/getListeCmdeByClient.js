@@ -21,6 +21,19 @@ export default async ({ params }, res, next) => {
                   foreignField: "_id",
                   as: "detailsCommandes"
                 }
+            },
+            {
+                $lookup: {
+                  from: "users",
+                  localField: "userId",
+                  foreignField: "_id",
+                  as: "user"
+                }
+            },
+            {
+                $project: {
+                  "user.password": 0
+                }
             }
         ]).sort({ createdAt : -1 })
 

@@ -11,9 +11,16 @@ export default async (req, res, next) => {
         cmde.status = req.body.state
         cmde.save()
 
+        let word_determine = 'a  été traitée avec succès.'
+        if (req.body.state == 'REFUSE') {
+            word_determine = "n'a pas été réfusé."
+        }
+
+        console.log('vecu mulitum opsuhl nkouter', word_determine);
+
         sendMail({
             toEmail: cmde.userId.email,
-            subject: 'Confirmation de traitement de votre commande',
+            subject: 'Résultat de votre commande',
             content: `
             <!doctype html>
             <html lang="en">
@@ -326,7 +333,7 @@ export default async (req, res, next) => {
                                             <td class="wrapper">
                                                 <p>Cher/Chère ${cmde.userId.firstName} ${cmde.userId.lastName},</p>
                                                 <p>Nous espérons que ce message vous trouve en bonne santé et dans les meilleures dispositions. Nous tenons à vous informer que votre commande ${cmde._id},
-                                                passée sur notre site <a href="" target="_blank">Planner</a> le ${ new Date(cmde.createdAt) }, a été traitée avec succès.</p>
+                                                passée sur notre site <a href="" target="_blank">Planner</a> le ${ new Date(cmde.createdAt) }, ${ word_determine }</p>
                                                 <p>Cordialement.</p>
                                             </td>
                                         </tr>
